@@ -1,4 +1,4 @@
-// Roman.cpp : Defines the entry point for the console application.
+﻿// Roman.cpp : Defines the entry point for the console application.
 //
 
 #include "stdafx.h"
@@ -16,7 +16,7 @@ class Roman {
 	int decimal = 0;
 	
 	string longForm() {
-		string M[] = { "", "M", "MM", "MMM" };
+		string M[] = { "", "M̅", "M̅M̅", "M̅M̅M̅" };
 		string C[] = { "", "C", "CC", "CCC", "CCCC", "D", "DC", "DCC", "DCCC", "DCCCC" };
 		string X[] = { "", "X", "XX", "XXX", "XXXX", "L", "LX", "LXX", "LXXX", "LXXXX" };
 		string I[] = { "", "I", "II", "III", "IIII", "V", "VI", "VII", "VIII", "VIIII" };
@@ -71,7 +71,7 @@ class Roman {
 		struct TFormat {
 			string Short;
 			string Long;
-		}aFormat[] = { {"IV","IIII"},{"IX","VIIII"},{"XL","XXXX"},{"XC","LXXXX"},{"CD","CM"},{"CM","DCCCC"} };
+		}aFormat[] = { {"IV","IIII"},{"IIX","VIII"}, {"IX","VIIII"},{"XL","XXXX"},{"XC","LXXXX"},{"CD","CM"},{"CM","DCCCC"} };
 
 		transform(str.begin(),
 			str.end(),
@@ -88,8 +88,12 @@ class Roman {
 		decimal = 0;
 
         //  sum all values in long format
-		for (char thisChar : str) {
-			decimal += charValue.find(thisChar)->second;
+		try {
+			for (char thisChar : str) {
+				decimal += charValue.find(thisChar)->second;
+			}
+		} catch (...) {
+			decimal = 0;
 		}
 
 		if (decimal > maxRoman) decimal = 0;
